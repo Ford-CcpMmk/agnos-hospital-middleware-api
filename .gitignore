@@ -1,0 +1,15 @@
+# Binaries and build output
+/bin/
+/dist/
+/tmp/
+*.exe
+*.test
+*.out
+
+# Local configuration
+.env
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store

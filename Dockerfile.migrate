@@ -1,0 +1,15 @@
+FROM golang:1.27.1-alpine3.24 AS build
+
+RUN go install \
+    -tags='no_mysql no_sqlite3 no_ydb no_clickhouse no_mssql no_azuresql no_vertica' \
+    github.com/pressly/goose/v3/cmd/goose@v3.28.0
+
+FROM alpine:3.24
+
+RUN apk add --no-cache ca-certificates
+
+WORKDIR /app
+COPY --from=build /go/bin/goose /usr/local/bin/goose
+COPY migrations /app/migrations
+
+ENTRYPOINT ["goose", "-dir", "/app/migrations"]
