@@ -1,4 +1,4 @@
-# Agnos Assignment API
+# Agnos Hospital Middleware API
 
 Starter REST API written in Go with the Gin framework.
 
@@ -57,7 +57,7 @@ curl http://localhost:8080/health/ready
 Expected response:
 
 ```json
-{"status":"ready"}
+{ "status": "ready" }
 ```
 
 ## Database migrations
@@ -257,14 +257,14 @@ when present.
 
 Base URL: `http://localhost:8080`
 
-| Method | Path | Authentication | Description |
-| --- | --- | --- | --- |
-| `GET` | `/health` | No | Liveness check |
-| `GET` | `/health/live` | No | Liveness check |
-| `GET` | `/health/ready` | No | Readiness check, including PostgreSQL connectivity |
-| `POST` | `/api/v1/staff/create` | No | Create a staff account |
-| `POST` | `/api/v1/staff/login` | No | Authenticate a staff member and return a JWT |
-| `POST` | `/api/v1/patient/search` | Bearer JWT | Search patients scoped to the authenticated hospital |
+| Method | Path                     | Authentication | Description                                          |
+| ------ | ------------------------ | -------------- | ---------------------------------------------------- |
+| `GET`  | `/health`                | No             | Liveness check                                       |
+| `GET`  | `/health/live`           | No             | Liveness check                                       |
+| `GET`  | `/health/ready`          | No             | Readiness check, including PostgreSQL connectivity   |
+| `POST` | `/api/v1/staff/create`   | No             | Create a staff account                               |
+| `POST` | `/api/v1/staff/login`    | No             | Authenticate a staff member and return a JWT         |
+| `POST` | `/api/v1/patient/search` | Bearer JWT     | Search patients scoped to the authenticated hospital |
 
 All errors use this shape:
 
@@ -304,12 +304,12 @@ Success — `201 Created`:
 }
 ```
 
-| Status | Error code | When |
-| --- | --- | --- |
-| `400` | `VALIDATION_ERROR` | Missing, invalid, or unknown request field |
-| `404` | `HOSPITAL_NOT_FOUND` | The supplied hospital code does not exist |
-| `409` | `STAFF_ALREADY_EXISTS` | Username already exists in that hospital |
-| `500` | `INTERNAL_ERROR` | Unexpected server error |
+| Status | Error code             | When                                       |
+| ------ | ---------------------- | ------------------------------------------ |
+| `400`  | `VALIDATION_ERROR`     | Missing, invalid, or unknown request field |
+| `404`  | `HOSPITAL_NOT_FOUND`   | The supplied hospital code does not exist  |
+| `409`  | `STAFF_ALREADY_EXISTS` | Username already exists in that hospital   |
+| `500`  | `INTERNAL_ERROR`       | Unexpected server error                    |
 
 ### Login
 
@@ -335,11 +335,11 @@ Success — `200 OK`:
 }
 ```
 
-| Status | Error code | When |
-| --- | --- | --- |
-| `400` | `VALIDATION_ERROR` | A required field is missing or malformed |
-| `401` | `INVALID_CREDENTIALS` | Username, password, or hospital is invalid |
-| `500` | `INTERNAL_ERROR` | Unexpected server error |
+| Status | Error code            | When                                       |
+| ------ | --------------------- | ------------------------------------------ |
+| `400`  | `VALIDATION_ERROR`    | A required field is missing or malformed   |
+| `401`  | `INVALID_CREDENTIALS` | Username, password, or hospital is invalid |
+| `500`  | `INTERNAL_ERROR`      | Unexpected server error                    |
 
 ### Search patients
 
@@ -399,13 +399,13 @@ Success — `200 OK`:
 }
 ```
 
-| Status | Error code | When |
-| --- | --- | --- |
-| `400` | `VALIDATION_ERROR` | Invalid JSON, unknown field, or no search criteria |
-| `401` | `UNAUTHORIZED` | Missing or invalid bearer token |
-| `403` | `FORBIDDEN` | Token hospital scope is invalid |
-| `502` | `HIS_UNAVAILABLE` | Hospital A cannot be reached on an identifier cache miss |
-| `500` | `INTERNAL_ERROR` | Unexpected server error |
+| Status | Error code         | When                                                     |
+| ------ | ------------------ | -------------------------------------------------------- |
+| `400`  | `VALIDATION_ERROR` | Invalid JSON, unknown field, or no search criteria       |
+| `401`  | `UNAUTHORIZED`     | Missing or invalid bearer token                          |
+| `403`  | `FORBIDDEN`        | Token hospital scope is invalid                          |
+| `502`  | `HIS_UNAVAILABLE`  | Hospital A cannot be reached on an identifier cache miss |
+| `500`  | `INTERNAL_ERROR`   | Unexpected server error                                  |
 
 PostgreSQL state is stored in a Docker volume, so it remains available after
 `docker compose down`. Use `docker compose down -v` only when you intentionally

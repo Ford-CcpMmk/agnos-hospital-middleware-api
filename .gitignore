@@ -13,3 +13,6 @@
 .idea/
 .vscode/
 .DS_Store
+
+# Personal learning notes (not part of the assignment submission)
+docs/PROJECT_WALKTHROUGH_TH.md
